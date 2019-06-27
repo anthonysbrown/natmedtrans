@@ -49,34 +49,36 @@ function ajax_get_booking(){
 	$message = array();
 	$message['url'] = '';
 	$message['error'] = '';
-	$url = ''.$this->get_option('natmed_appurl').'/oauth/token';
-	$response = wp_remote_post( $url, array(
-	'method' => 'POST',
-	'timeout' => 45,	
-	'httpversion' => '1.0',	
-	'headers'  => array(
-        'Content-type: application/x-www-form-urlencoded'
-    ),
-	 'body' => array(
-        'grant_type' => 'client_credentials',
-        'client_id' => $this->get_option('natmed_clientid'),
-		'client_secret' => $this->get_option('natmed_clientsecret'),
-    ),
-    )
-);
+	
+	$token = get_transient( 'nmt_token');
+	
+	if($token === false){
+		
+		$url = ''.$this->get_option('natmed_appurl').'/oauth/token';
+		$response = wp_remote_post( $url, array(
+		'method' => 'POST',
+		'timeout' => 45,	
+		'httpversion' => '1.0',	
+		'headers'  => array(
+			'Content-type: application/x-www-form-urlencoded'
+		),
+		 'body' => array(
+			'grant_type' => 'client_credentials',
+			'client_id' => $this->get_option('natmed_clientid'),
+			'client_secret' => $this->get_option('natmed_clientsecret'),
+		),
+		)
+	);
+	}
+	
 	
 	if($response){
-	$token = json_decode($response['body']);
-	
-	
-	$access_token = $token->access_token;
-	$message['url'] = ''.$this->get_option('natmed_appurl').'/memberappt/index?token='.$access_token.'';
-	
-	
-	}else{
-		
-	$message['error'] = 'Failed to connect.';	
+	$token_data = json_decode($response['body']);
+	$token = $token_data->access_token;
+	set_transient( 'nmt_token', $token_data->access_token, 120 * MINUTE_IN_SECONDS);	
 	}
+	
+	$message['url'] = ''.$this->get_option('natmed_appurl').'/memberappt/index?token='.$token .'';
 	echo json_encode($message);
 	die();
 }
