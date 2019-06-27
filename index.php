@@ -69,7 +69,6 @@ function ajax_get_booking(){
 		),
 		)
 	);
-	}
 	
 	
 	if($response){
@@ -77,6 +76,11 @@ function ajax_get_booking(){
 	$token = $token_data->access_token;
 	set_transient( 'nmt_token', $token_data->access_token, 120 * MINUTE_IN_SECONDS);	
 	}
+	
+	}
+	
+	
+	
 	
 	$message['url'] = ''.$this->get_option('natmed_appurl').'/memberappt/index?token='.$token .'';
 	echo json_encode($message);
