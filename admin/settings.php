@@ -57,7 +57,7 @@ add_settings_field(
 */
 	add_settings_field( 
 		'natmed_width', 
-		__( 'Modal Width', 'natmedtrans' ), 
+		__( 'Modal Max Width (default 700px)', 'natmedtrans' ), 
 		'natmed_width_render', 
 		'pluginPage', 
 		'natmedtrans_pluginPage_section' 
