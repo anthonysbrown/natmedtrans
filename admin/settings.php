@@ -47,14 +47,14 @@ add_settings_field(
 		'natmedtrans_pluginPage_section' 
 	);
 
-	add_settings_field( 
+	/*add_settings_field( 
 		'natmed_header', 
 		__( 'Modal Header Text', 'natmedtrans' ), 
 		'natmed_header_render', 
 		'pluginPage', 
 		'natmedtrans_pluginPage_section' 
 	);
-
+*/
 	add_settings_field( 
 		'natmed_width', 
 		__( 'Modal Width', 'natmedtrans' ), 

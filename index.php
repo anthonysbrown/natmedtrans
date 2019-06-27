@@ -70,7 +70,7 @@ function ajax_get_booking(){
 	
 	
 	$access_token = $token->access_token;
-	$message['url'] = ''.$this->get_option('natmed_appurl').'/memberappt?access_token='.$access_token.'';
+	$message['url'] = ''.$this->get_option('natmed_appurl').'/memberappt/index?token='.$access_token.'';
 	
 	
 	}else{
@@ -85,7 +85,7 @@ function wp_footer(){
 	?>
 <div class="remodal" data-remodal-id="natmedtrans">
   <button data-remodal-action="close" class="remodal-close"></button>
-  <h1><?php echo $this->get_option('natmed_header'); ?></h1>
+ 
 <div class="natmedtrans-wrapper"></div>
 </div>
 <style type="text/css">
@@ -93,6 +93,7 @@ function wp_footer(){
 <?php if($this->get_option('natmed_width')){ ?>
 .remodal {
 	margin-top:30px;
+	padding:25px 20px 20px 20px;
     max-width: <?php echo $this->get_option('natmed_width'); ?>;
 }
 <?php  } ?>
