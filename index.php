@@ -74,7 +74,7 @@ function ajax_get_booking(){
 	if($response){
 	$token_data = json_decode($response['body']);
 	$token = $token_data->access_token;
-	set_transient( 'nmtt_token', $token_data->access_token, 1800);	
+	set_transient( 'nmtt_token', $token_data->access_token, 10 * MINUTE_IN_SECONDS);	
 	}
 	
 	}
