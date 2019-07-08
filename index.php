@@ -46,15 +46,13 @@ return $options[$option];
 	
 }
 function ajax_get_booking(){
+	
+	session_start();
 	$message = array();
 	$message['url'] = '';
 	$message['error'] = '';
 	
-	$token = get_transient( 'nmtt_token');
-
-	if($token === false){
-		
-		$url = ''.$this->get_option('natmed_appurl').'/oauth/token';
+$url = ''.$this->get_option('natmed_appurl').'/oauth/token';
 		$response = wp_remote_post( $url, array(
 		'method' => 'POST',
 		'timeout' => 45,	
@@ -71,17 +69,12 @@ function ajax_get_booking(){
 	);
 	
 	
-	if($response){
+	
 	$token_data = json_decode($response['body']);
 	$token = $token_data->access_token;
-	set_transient( 'nmtt_token', $token_data->access_token, 10 * MINUTE_IN_SECONDS);	
-	}
 	
-	}
-	
-	
-	
-	
+
+
 	$message['url'] = ''.$this->get_option('natmed_appurl').'/memberappt/index?token='.$token .'';
 	echo json_encode($message);
 	die();
