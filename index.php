@@ -108,11 +108,12 @@ function button($atts){
 		$atts = shortcode_atts( array(
 		'class' => '',
 		'text' => 'Open Modal',
+		'new_window' => '1',
 		'id' => ''
 	), $atts, 'natmedtrans' );
 	
 	
-	return '<a href="#natmedtrans" id="'.$atts['id'].'" class="'.$atts['class'].'">'.$atts['text'].'</a>';
+	return '<a href="#natmedtrans" id="'.$atts['id'].'" class="natmedtrans-button '.$atts['class'].'" data-window="'.$atts['new_window'].'">'.$atts['text'].'</a>';
 	
 }
 
@@ -123,7 +124,7 @@ function scripts(){
 			wp_enqueue_script('jquery');
 		   
 		    wp_enqueue_script('nmt-remodal', plugins_url('js/remodal.js', __FILE__), array('jquery'));  
-			  wp_enqueue_script('nmt-scripts', plugins_url('js/scripts.js', __FILE__), array('jquery','nmt-remodal'));
+			  wp_enqueue_script('nmt-scripts', plugins_url('js/scripts.js', __FILE__), array('jquery','nmt-remodal'),time());
 			wp_enqueue_style('nmt-style', plugins_url('css/remodal.css', __FILE__));  
 			
 			wp_localize_script( 'nmt-scripts', 'nmt_var', array( 'ajax_url' => admin_url( 'admin-ajax.php' ) ));
