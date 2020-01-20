@@ -45,7 +45,7 @@ $options = get_option( 'natmedtrans_settings' );
 return $options[$option];	
 	
 }
-function ajax_get_booking(){
+function ajax_get_booking($return = false){
 	
 	session_start();
 	$message = array();
@@ -76,13 +76,18 @@ $url = ''.$this->get_option('natmed_appurl').'/oauth/token';
 
 
 	$message['url'] = ''.$this->get_option('natmed_appurl').'/memberappt/index?token='.$token .'';
+	
+	if($return == true){
+		return $message['url'];
+	}else{
 	echo json_encode($message);
 	die();
+	}
 }
 function wp_footer(){
 	
 	?>
-<div class="remodal" data-remodal-id="natmedtrans">
+<div class="remodal" data-remodal-id="natmedtrans" data-remodal-options="hashTracking: false">
   <button data-remodal-action="close" class="remodal-close"></button>
  
 <div class="natmedtrans-wrapper"></div>
@@ -111,10 +116,10 @@ function button($atts){
 		'new_window' => '1',
 		'id' => ''
 	), $atts, 'natmedtrans' );
+
 	
-	
-	return '<a href="#natmedtrans" id="'.$atts['id'].'" class="natmedtrans-button '.$atts['class'].'" data-window="'.$atts['new_window'].'">'.$atts['text'].'</a>';
-	
+
+return '<a href="#" id="'.$atts['id'].'" class="natmedtrans-button '.$atts['class'].'" data-window="'.$atts['new_window'].'" data-url="'.$this->ajax_get_booking(true).'" >'.$atts['text'].'</a>';
 }
 
 function scripts(){
