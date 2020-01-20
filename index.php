@@ -4,7 +4,7 @@ Plugin Name: Nat Med Trans Integration
 Plugin URI: http://www.codeable.io
 Description: Nat Med Trans Integration
 Author: Anthony Brown
-Version: 1.0.0
+Version: 1.0.5
 Author URI: http://worcesterwideweb.com
 */
 
